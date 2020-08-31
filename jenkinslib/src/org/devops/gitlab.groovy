@@ -17,6 +17,16 @@ def HttpReq(reqType,reqUrl,reqBody){
     return result
 }
 
+//创建仓库文件
+
+def CreateRepoFile(projectId, filePath, fileContent){
+    apiUrl = "projects/${projectId}/repository/files/${filePath}"
+    reqBody = """{"branch": "master", "content": "${fileContent}", "commit_message": "create a new file"}"""
+    response = HttpReq("POST", apiUrl, reqBody)
+    println(response)
+}
+
+
 ////// 更改提交状态
 def ChangeCommitStatus(projectId, commitSha, status){
     commitApi = "projects/${projectId}/statuses/${commitSha}?state=${status}"
